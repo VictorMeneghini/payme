@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Input, InputProps } from "./Input";
 
 const componentUnderTestFactory = (props: InputProps = {}) => {
@@ -31,5 +31,23 @@ describe("Input component", () => {
       "input-component"
     ) as HTMLInputElement;
     expect(linkElement.type).toBe("text");
+  });
+
+  test("Should emit event properly", () => {
+    const mockFunction = jest.fn();
+
+    componentUnderTestFactory({
+      onChange: mockFunction,
+    });
+
+    const linkElement = screen.queryByTestId(
+      "input-component"
+    ) as HTMLInputElement;
+
+    fireEvent.change(linkElement, {
+      target: { value: "hello world" },
+    });
+
+    expect(mockFunction).toHaveBeenCalledWith("hello world");
   });
 });
