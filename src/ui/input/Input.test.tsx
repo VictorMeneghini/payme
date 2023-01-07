@@ -24,4 +24,12 @@ describe("Input component", () => {
     const linkElement = screen.queryByTestId("error-span");
     expect(linkElement).toBeInTheDocument();
   });
+
+  test("Should render input according the type", () => {
+    componentUnderTestFactory();
+    const linkElement = screen.queryByTestId(
+      "input-component"
+    ) as HTMLInputElement;
+    expect(linkElement.type).toBe("text");
+  });
 });
