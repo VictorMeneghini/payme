@@ -1,6 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./assets/logo.svg";
+import "./App.css";
+
+import { Input } from "@/ui/input/Input";
 
 function App() {
   return (
@@ -10,6 +12,7 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
+        <Input errorMessage="invalid email"></Input>
         <a
           className="App-link"
           href="https://reactjs.org"
