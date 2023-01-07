@@ -1,10 +1,20 @@
+import styles from "./Input.module.css";
+
 export type InputProps = {
   errorMessage?: string;
   type?: "text" | "number" | "password";
+  placeholder?: string;
   onChange?: (inputValue: string) => void;
 };
 
-const Input = ({ errorMessage, type = "text", onChange }: InputProps) => {
+console.log(styles);
+
+const Input = ({
+  errorMessage,
+  type = "text",
+  placeholder,
+  onChange,
+}: InputProps) => {
   console.log("rerender");
 
   const onInputChange = (inputEvent: React.FormEvent<HTMLInputElement>) => {
@@ -18,11 +28,17 @@ const Input = ({ errorMessage, type = "text", onChange }: InputProps) => {
   return (
     <>
       <input
+        placeholder={placeholder}
+        className={styles.input}
         type={type}
         data-testid="input-component"
         onChange={(inputEvent) => onInputChange(inputEvent)}
       />
-      {errorMessage && <span data-testid="error-span">{errorMessage}</span>}
+      {errorMessage && (
+        <span className={styles.error} data-testid="error-span">
+          {errorMessage}
+        </span>
+      )}
     </>
   );
 };
