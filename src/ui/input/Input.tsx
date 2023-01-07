@@ -1,3 +1,5 @@
+import 'input.module.css'
+
 export type InputProps = {
   errorMessage?: string;
   type?: "text" | "number" | "password";
