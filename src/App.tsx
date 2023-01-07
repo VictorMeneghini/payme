@@ -5,6 +5,10 @@ import "./App.css";
 import { Input } from "@/ui/input/Input";
 
 function App() {
+  const handleOnChange = (inputValue: string) => {
+    console.log(inputValue);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -12,7 +16,10 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <Input errorMessage="invalid email"></Input>
+        <Input
+          onChange={(inputValue) => handleOnChange(inputValue)}
+          errorMessage="invalid email"
+        ></Input>
         <a
           className="App-link"
           href="https://reactjs.org"
