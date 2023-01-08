@@ -1,13 +1,9 @@
-import styles from "./Input.module.css";
-
 export type InputProps = {
   errorMessage?: string;
-  type?: "text" | "number" | "password";
+  type?: "text" | "number" | "password" | "email";
   placeholder?: string;
   onChange?: (inputValue: string) => void;
 };
-
-console.log(styles);
 
 const Input = ({
   errorMessage,
@@ -28,14 +24,18 @@ const Input = ({
   return (
     <>
       <input
+        className={`${
+          errorMessage
+            ? "border-red-600 focus:border-red-500 ring-red-500"
+            : "border-gray-900 focus:ring-gray-900 ring-gray-900"
+        }`}
         placeholder={placeholder}
-        className={styles.input}
         type={type}
         data-testid="input-component"
         onChange={(inputEvent) => onInputChange(inputEvent)}
       />
       {errorMessage && (
-        <span className={styles.error} data-testid="error-span">
+        <span className="text-red-600 m-1" data-testid="error-span">
           {errorMessage}
         </span>
       )}

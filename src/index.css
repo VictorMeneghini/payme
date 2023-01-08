@@ -1,44 +1,17 @@
-* {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-  font-weight: 400;
-	font: inherit;
-	vertical-align: baseline;
-  box-sizing: border-box;
-  font-family: 'Outfit', sans-serif;
-}
-
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol, ul {
-	list-style: none;
-}
-blockquote, q {
-	quotes: none;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-html {
-  background-color: #FFFFFF;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 input {
-  outline: none;
-  font-weight: 400;
+  @apply 
+    my-1 
+    w-full
+    px-3
+    py-2
+  placeholder-gray-900 
+  bg-white border 
+   border-gray-900 
+    rounded-md 
+    focus:outline-none 
+    focus:ring-1
 }
