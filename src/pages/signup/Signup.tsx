@@ -13,10 +13,7 @@ function Signup() {
       <Input placeholder="type your email" type="email"></Input>
       <Input placeholder="type your password" type="password"></Input>
       <Input placeholder="confirm password" type="password"></Input>
-      <button
-        type="submit"
-        className="flex justify-center w-full px-3 py-4 text-white bg-gray-800 rounded-md focus:bg-gray-900 hover:bg-gray-900 focus:outline-none"
-      >
+      <button type="submit" className="btn">
         <svg
           className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-100"
           xmlns="http://www.w3.org/2000/svg"
