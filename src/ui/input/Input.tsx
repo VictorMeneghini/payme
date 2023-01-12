@@ -13,14 +13,14 @@ export type InputProps = {
   type?: "text" | "number" | "password" | "email";
   placeholder?: string;
   rules?: RegisterOptions;
-  onChange?: (inputValue: string) => void;
   register: UseFormRegister<FieldValues>;
+  onChange?: (inputValue: string) => void;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 const Input = ({
+  type = "text",
   id,
   errorMessage,
-  type = "text",
   placeholder,
   rules,
   register,

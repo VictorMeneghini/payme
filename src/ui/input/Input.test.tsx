@@ -1,55 +1,78 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { Input, InputProps } from "./Input";
 
-// const componentUnderTestFactory = (props: InputProps = {}) => {
-//   render(<Input {...props} />);
-// };
+const DEFAULT_PROPS = {
+  id: "mocke_id",
+  register: jest.fn(),
+};
 
-// describe("Input component", () => {
-//   test("Should be defined", () => {
-//     componentUnderTestFactory();
-//     const linkElement = screen.getByTestId("input-component");
-//     expect(linkElement).toBeInTheDocument();
-//   });
+const componentUnderTestFactory = (props: InputProps) => {
+  render(<Input {...props} />);
+};
 
-//   test("Should dont see span error if it not has error", () => {
-//     componentUnderTestFactory();
-//     const linkElement = screen.queryByTestId("error-span");
-//     expect(linkElement).not.toBeInTheDocument();
-//   });
+describe("Input component", () => {
+  test("Should be defined", () => {
+    const mockRegister = jest.fn();
 
-//   test("Should see span error if it not has error", () => {
-//     // componentUnderTestFactory({ errorMessage: "some error", id: "myId" });
-//     const linkElement = screen.queryByTestId("error-span");
-//     expect(linkElement).toBeInTheDocument();
-//   });
+    componentUnderTestFactory({
+      id: "name",
+      register: mockRegister,
+    });
+    const linkElement = screen.getByTestId("input-component");
+    expect(linkElement).toBeInTheDocument();
+  });
 
-//   test("Should render input according the type", () => {
-//     componentUnderTestFactory();
-//     const linkElement = screen.queryByTestId(
-//       "input-component"
-//     ) as HTMLInputElement;
-//     expect(linkElement.type).toBe("text");
-//   });
+  test("Should dont see span error if it has no errors", () => {
+    componentUnderTestFactory({ ...DEFAULT_PROPS });
+    const linkElement = screen.queryByTestId("error-span");
+    expect(linkElement).not.toBeInTheDocument();
+  });
 
-//   test("Should emit event properly", () => {
-//     const mockFunction = jest.fn();
-//     const mockRegister = jest.fn();
+  test("Should see span error if it has error", () => {
+    componentUnderTestFactory({
+      ...DEFAULT_PROPS,
+      errorMessage: {
+        message: "mock_message_required",
+        type: "required",
+      },
+    });
+    const linkElement = screen.queryByTestId("error-span");
+    expect(linkElement).toBeInTheDocument();
+  });
 
-//     // componentUnderTestFactory({
-//     //   onChange: mockFunction,
-//     //   register: mockRegister,
-//     // });
+  test("Should render input type properly. type = text", () => {
+    componentUnderTestFactory({ ...DEFAULT_PROPS });
+    const linkElement = screen.queryByTestId(
+      "input-component"
+    ) as HTMLInputElement;
+    componentUnderTestFactory({ ...DEFAULT_PROPS, type: "text" });
+    expect(linkElement.type).toBe("text");
+  });
 
-//     const linkElement = screen.queryByTestId(
-//       "input-component"
-//     ) as HTMLInputElement;
+  test("Should render input type properly. type = email", () => {
+    componentUnderTestFactory({ ...DEFAULT_PROPS, type: "email" });
+    const linkElement = screen.queryByTestId(
+      "input-component"
+    ) as HTMLInputElement;
+    componentUnderTestFactory({ ...DEFAULT_PROPS, type: "email" });
+    expect(linkElement.type).toBe("email");
+  });
 
-//     fireEvent.change(linkElement, {
-//       target: { value: "hello world" },
-//     });
+  test("Should render input type properly. type = password", () => {
+    componentUnderTestFactory({ ...DEFAULT_PROPS, type: "password" });
+    const linkElement = screen.queryByTestId(
+      "input-component"
+    ) as HTMLInputElement;
+    componentUnderTestFactory({ ...DEFAULT_PROPS, type: "password" });
+    expect(linkElement.type).toBe("password");
+  });
 
-//     expect(mockFunction).toHaveBeenCalledWith("hello world");
-//   });
-// });
+  test("Should render input type default as text", () => {
+    componentUnderTestFactory({ ...DEFAULT_PROPS });
+    const linkElement = screen.queryByTestId(
+      "input-component"
+    ) as HTMLInputElement;
+    componentUnderTestFactory({ ...DEFAULT_PROPS, type: "text" });
+    expect(linkElement.type).toBe("text");
+  });
+});

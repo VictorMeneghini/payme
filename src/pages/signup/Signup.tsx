@@ -15,6 +15,7 @@ function Signup() {
   console.log(errors, "errors");
   return (
     <form
+      data-testid="signup-form"
       onSubmit={handleSubmit(onSubmit)}
       className=" max-w-2xl container mx-auto p-5 mx-auto xl:px-0"
     >
