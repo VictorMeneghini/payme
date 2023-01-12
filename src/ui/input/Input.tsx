@@ -1,14 +1,29 @@
+import { InputHTMLAttributes } from "react";
+
+import {
+  FieldValues,
+  UseFormRegister,
+  RegisterOptions,
+  FieldError,
+} from "react-hook-form";
+
 export type InputProps = {
-  errorMessage?: string;
+  id: string;
+  errorMessage?: FieldError;
   type?: "text" | "number" | "password" | "email";
   placeholder?: string;
+  rules?: RegisterOptions;
   onChange?: (inputValue: string) => void;
-};
+  register: UseFormRegister<FieldValues>;
+} & InputHTMLAttributes<HTMLInputElement>;
 
 const Input = ({
+  id,
   errorMessage,
   type = "text",
   placeholder,
+  rules,
+  register,
   onChange,
 }: InputProps) => {
   console.log("rerender");
@@ -25,18 +40,19 @@ const Input = ({
     <>
       <input
         className={`${
-          errorMessage
+          errorMessage?.message
             ? "border-red-600 focus:border-red-500 ring-red-500"
             : "border-gray-900 focus:ring-gray-900 ring-gray-900"
         }`}
         placeholder={placeholder}
         type={type}
+        {...register(id, { ...rules })}
         data-testid="input-component"
         onChange={(inputEvent) => onInputChange(inputEvent)}
       />
-      {errorMessage && (
+      {errorMessage?.message && (
         <span className="text-red-600 m-1" data-testid="error-span">
-          {errorMessage}
+          {errorMessage.message}
         </span>
       )}
     </>
