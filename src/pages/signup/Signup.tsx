@@ -12,12 +12,12 @@ function Signup() {
 
   const onSubmit = (data: any) => console.log(data, "signup");
 
-  console.log(errors, "errors");
+  console.log("rerender signup");
   return (
     <form
       data-testid="signup-form"
       onSubmit={handleSubmit(onSubmit)}
-      className=" max-w-2xl container mx-auto p-5 mx-auto xl:px-0"
+      className="container-app"
     >
       <h1 className="block text-4xl font-bold leading-tight tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">
         Lets Register your account
@@ -30,6 +30,10 @@ function Signup() {
         id="name"
         placeholder="type your name"
         rules={{
+          minLength: {
+            value: 3,
+            message: "bla bla",
+          },
           required: {
             value: true,
             message: "Name is required",

@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.container-app {
+  @apply
+    container 
+    mx-auto 
+    p-5 
+    mx-auto 
+    max-w-2xl 
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"] {
