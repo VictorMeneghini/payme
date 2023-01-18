@@ -2,6 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.main-title {
+  @apply 
+    text-4xl 
+    font-bold 
+    leading-tight 
+    tracking-tight 
+    text-4xl 
+    leading-tight 
+    dark:text-white
+    text-gray-800 
+
+}
+
+.sub-title {
+  @apply
+    py-2 
+    text-xl 
+    leading-tight 
+    text-xl 
+    dark:text-gray-300
+    text-gray-500 
+
+}
+
 .container-app {
   @apply
     container 
@@ -40,4 +65,9 @@ input[type="password"] {
     bg-gray-800 
     focus:bg-gray-900 
     hover:bg-gray-900 
+}
+
+.btn:disabled {
+  @apply 
+    bg-gray-600
 }

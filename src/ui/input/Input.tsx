@@ -25,13 +25,13 @@ const Input = ({
   rules,
   register,
   onChange,
+  ...props
 }: InputProps) => {
-  console.log("rerender");
-
   const onInputChange = (inputEvent: React.FormEvent<HTMLInputElement>) => {
     let target = inputEvent.target as HTMLInputElement;
 
     if (onChange) {
+      console.log("change!");
       onChange(target.value);
     }
   };
@@ -49,6 +49,7 @@ const Input = ({
         {...register(id, { ...rules })}
         data-testid="input-component"
         onChange={(inputEvent) => onInputChange(inputEvent)}
+        {...props}
       />
       {errorMessage?.message && (
         <span className="text-red-600 m-1" data-testid="error-span">

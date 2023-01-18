@@ -1,78 +1,103 @@
-import { FieldError, useForm } from "react-hook-form";
+import { FieldError, useForm, RegisterOptions } from "react-hook-form";
 
 import { Input } from "@/ui/input/Input";
+import { blankValues } from "@/common/form-validate";
 import { Loading } from "@/ui/loading/Loading";
+
+const FORM_RULES: Record<string, RegisterOptions> = {
+  NAME: {
+    required: {
+      value: true,
+      message: "Name is required",
+    },
+    validate: (inputValue) => blankValues("Name", inputValue),
+  },
+  EMAIL: {
+    required: {
+      value: true,
+      message: "Email is required",
+    },
+    validate: (inputValue) => blankValues("Email", inputValue),
+  },
+  PASSWORD: {
+    required: {
+      value: true,
+      message: "Password is required",
+    },
+    minLength: {
+      value: 5,
+      message: "Your password can not be less then 5",
+    },
+    validate: (inputValue) => blankValues("Password", inputValue),
+  },
+};
 
 function Signup() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm();
 
-  const onSubmit = (data: any) => console.log(data, "signup");
+  const onSubmit = (data: any) => {
+    console.log(data);
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve("logged");
+      }, 5000);
+    });
+  };
 
-  console.log("rerender signup");
   return (
-    <form
-      data-testid="signup-form"
-      onSubmit={handleSubmit(onSubmit)}
-      className="container-app"
-    >
-      <h1 className="block text-4xl font-bold leading-tight tracking-tight text-gray-800 lg:text-4xl lg:leading-tight xl:text-6xl xl:leading-tight dark:text-white">
-        Lets Register your account
-      </h1>
-      <p className="block py-2 text-xl leading-tight text-gray-500 lg:text-xl xl:text-2xl dark:text-gray-300">
+    <div className="container-app">
+      <h1 className="main-title">Lets Register your account</h1>
+      <p className="sub-title">
         Hello user i wish that, you have a greatful journey
       </p>
-      <Input
-        register={register}
-        id="name"
-        placeholder="type your name"
-        rules={{
-          minLength: {
-            value: 3,
-            message: "bla bla",
-          },
-          required: {
-            value: true,
-            message: "Name is required",
-          },
-        }}
-        errorMessage={{ ...(errors["name"] as FieldError) }}
-      ></Input>
-      <Input
-        register={register}
-        id="email"
-        type="email"
-        placeholder="type your email"
-        rules={{
-          required: {
-            value: true,
-            message: "Email is required",
-          },
-        }}
-        errorMessage={{ ...(errors["email"] as FieldError) }}
-      ></Input>
-      <Input
-        register={register}
-        id="password"
-        type="password"
-        placeholder="type your password"
-        rules={{
-          minLength: {
-            value: 5,
-            message: "Your password need to be bigger than 5",
-          },
-        }}
-        errorMessage={{ ...(errors["password"] as FieldError) }}
-      ></Input>
+      <form
+        data-testid="signup-form"
+        onSubmit={handleSubmit(async (e) => {
+          try {
+            console.log(isSubmitting);
+            await onSubmit(e);
+            console.log(isSubmitting);
+            reset();
+          } catch (e) {
+            console.log(e, "error rejected");
+          }
+        })}
+      >
+        <Input
+          register={register}
+          id="name"
+          placeholder="type your name"
+          rules={FORM_RULES.NAME}
+          errorMessage={{ ...(errors["name"] as FieldError) }}
+        ></Input>
+        <Input
+          register={register}
+          id="email"
+          type="email"
+          placeholder="type your email"
+          rules={FORM_RULES.EMAIL}
+          errorMessage={{ ...(errors["email"] as FieldError) }}
+        ></Input>
+        <Input
+          register={register}
+          id="password"
+          type="password"
+          placeholder="type your password"
+          rules={FORM_RULES.PASSWORD}
+          errorMessage={{ ...(errors["password"] as FieldError) }}
+        ></Input>
 
-      <button type="submit" className="btn">
-        <Loading />
-        Create account
-      </button>
-    </form>
+        <button type="submit" className="btn" disabled={isSubmitting}>
+          {isSubmitting && <Loading />}
+          Create account
+        </button>
+      </form>
+    </div>
   );
 }
 
