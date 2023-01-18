@@ -29,4 +29,28 @@ describe("Signup form", () => {
 
     expect(await screen.findByTestId("loading")).toBeDefined();
   });
+
+  test("Should clear input values after submit", async () => {
+    const calledMock = jest.fn();
+    render(<Signup onSubmit={calledMock} />);
+
+    const btn = screen.getByRole("button");
+    const [nameInput, emailInput, passwordInput] =
+      screen.getAllByTestId("input-component");
+
+    userEvent.type(nameInput, "novo");
+    userEvent.type(emailInput, "novo@mail.com");
+    userEvent.type(passwordInput, "123456");
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(() => {
+      userEvent.click(btn);
+    });
+
+    expect(calledMock).toHaveBeenCalledWith({
+      name: "novo",
+      email: "novo@mail.com",
+      password: "123456",
+    });
+  });
 });

@@ -31,7 +31,6 @@ const Input = ({
     let target = inputEvent.target as HTMLInputElement;
 
     if (onChange) {
-      console.log("change!");
       onChange(target.value);
     }
   };

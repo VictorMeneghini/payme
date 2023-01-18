@@ -32,22 +32,22 @@ const FORM_RULES: Record<string, RegisterOptions> = {
   },
 };
 
-function Signup() {
+const handleOnSubmit = (data: any) => {
+  console.log(data);
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("logged");
+    }, 5000);
+  });
+};
+
+function Signup({ onSubmit = handleOnSubmit }) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
   } = useForm();
-
-  const onSubmit = (data: any) => {
-    console.log(data);
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve("logged");
-      }, 5000);
-    });
-  };
 
   return (
     <div className="container-app">
@@ -59,12 +59,10 @@ function Signup() {
         data-testid="signup-form"
         onSubmit={handleSubmit(async (e) => {
           try {
-            console.log(isSubmitting);
             await onSubmit(e);
-            console.log(isSubmitting);
             reset();
           } catch (e) {
-            console.log(e, "error rejected");
+            console.log("error");
           }
         })}
       >
