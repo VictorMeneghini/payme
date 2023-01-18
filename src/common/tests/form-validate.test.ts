@@ -1,4 +1,4 @@
-import {blankValues} from "../form-validate"
+import { blankValues } from "../form-validate"
 
 describe('BlankValues', () => {
   test("Should return an error if fieldName was not provided", () => {
