@@ -38,11 +38,7 @@ const Input = ({
   return (
     <>
       <input
-        className={`${
-          errorMessage?.message
-            ? "border-red-600 focus:border-red-500 ring-red-500"
-            : "border-gray-900 focus:ring-gray-900 ring-gray-900"
-        }`}
+        className={`input ${errorMessage?.message ? "error" : ""}`}
         placeholder={placeholder}
         type={type}
         {...register(id, { ...rules })}
